@@ -1,3 +1,7 @@
+<?php
+require 'function.php';
+$barang = mysqli_query($koneksi,"SELECT * FROM produk ")
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,7 +18,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
+            <a class="navbar-brand ps-3" href="index.html">aplikasi kasir</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -28,7 +32,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 order
                             </a>
-                            <a class="nav-link" href="stok.php">
+                            <a class="nav-link" href="stock.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 stok data
                             </a>
@@ -53,18 +57,20 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                        <h1 class="mt-4">stock barang</h1>
+                        
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    <div class="card-body">jumlah barang :</div>
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        Open modal
+                                     </button>
+                                <div class="container mt-3">
+
+                                     
                                 </div>
                             </div>
                         </div>
@@ -77,33 +83,25 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>no</th>
+                                            <th>nama produk</th>
+                                            <th>deskripsi</th>
+                                            <th>harga</th>
+                                            <th>stock date</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                        <?php $i = 1 ; ?>
+                                        <?php foreach ($barang as $brg):?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                        <td><?php $i; ?></td>
+                                            <td><?= $brg ['nama_produk']; ?></td>
+                                            <td><?= $brg ['deskripsi']; ?></td>
+                                            <td><?= $brg ['harga']; ?></td>
+                                            <td><?= $brg ['stock']; ?></td>
                                         </tr>
+                                        <?php $i++ ; ?>
+                                        <?php endforeach;?>
                                     </tbody>
                                 </table>
                             </div>
@@ -127,4 +125,33 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
+    <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <input type="text" name="nama_produk" class="form-control mt-3 " placeholder="nama produk">
+        <input type="text" name="deskripsi" class="form-control mt-3" placeholder="deskripsi produk">
+        <input type="num" name="harga" class="form-control mt-3" placeholder="harga">
+        <input type="num" name="stock" class="form-control mt-3" placeholder="stok">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-succes" name="tambahproduk">simpan</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">tutup</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 </html>

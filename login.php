@@ -28,7 +28,7 @@ require 'function.php'
                                     <div class="card-body">
                                         <form method="POST">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="Username" type="text" placeholder="Username" require/>
+                                                <input class="form-control" name="username" type="text" placeholder="Username" require/>
                                                 <label for="Username">Username</label>
                                             </div>
                                             <div class="form-floating mb-3">
