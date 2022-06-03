@@ -18,7 +18,7 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">aplikasi kasir</a>
+            <a class="navbar-brand ps-3" href="index.php">aplikasi kasir</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         </nav>
@@ -39,6 +39,10 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
                             <a class="nav-link" href="masuk.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 barang masuk
+                            </a>
+                            <a class="nav-link" href="pelanggan.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                kelola pelanggan
                             </a>
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
@@ -66,7 +70,7 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
                                     
                                 </div>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                                        Open modal
+                                        tambah barang
                                      </button>
                                 <div class="container mt-3">
 
@@ -77,7 +81,7 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                Data barang
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -94,7 +98,7 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
                                         <?php $i = 1 ; ?>
                                         <?php foreach ($barang as $brg):?>
                                         <tr>
-                                        <td><?php $i; ?></td>
+                                        <td><?= $i; ?></td>
                                             <td><?= $brg ['nama_produk']; ?></td>
                                             <td><?= $brg ['deskripsi']; ?></td>
                                             <td><?= $brg ['harga']; ?></td>
@@ -131,7 +135,7 @@ $barang = mysqli_query($koneksi,"SELECT * FROM produk ")
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
+        <h4 class="modal-title">DATA TAMBAH BARANG</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
 

@@ -1,3 +1,7 @@
+<?php
+require 'function.php';
+$pelanggan = mysqli_query($koneksi,"SELECT * FROM pelanggan ")
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +40,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 barang masuk
                             </a>
-                            <a class="nav-link" href="pelanggan.php">
+                            <a class="nav-link" href="masuk.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 kelola pelanggan
                             </a>
@@ -57,57 +61,51 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                        <h1 class="mt-4">kelola pelanggan</h1>
+                        
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    <div class="card-body">jumlah pelanggan :</div>
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        tambah pelanggan
+                                     </button>
+                                <div class="container mt-3">
+
+                                     
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                Data pelanggan
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                    <tr>
+                                            <th>no</th>
+                                            <th>nama pelanggan</th>
+                                            <th>notelp</th>
+                                            <th>alamat</th>
+                                            <th>aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                        <?php $i = 1 ; ?>
+                                        <?php foreach ($pelanggan as $pl):?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                        <td><?php $i; ?></td>
+                                            <td><?= $pl ['nama_pelanggan']; ?></td>
+                                            <td><?= $pl ['notelp']; ?></td>
+                                            <td><?= $pl ['alamat']; ?></td>
                                         </tr>
+                                        
+                                        <?php $i++ ; ?>
+                                        <?php endforeach;?>
                                     </tbody>
                                 </table>
                             </div>
@@ -131,4 +129,32 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
+    <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">DATA TAMBAH PELANGGAN</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <input type="text" name="nama_pelanggan" class="form-control mt-3 " placeholder="nama pelanggan">
+        <input type="text" name="notelp" class="form-control mt-3" placeholder="notelp">
+        <input type="text" name="alamat" class="form-control mt-3" placeholder="alamat">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-succes" name="tambahpelanggan">simpan</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">tutup</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 </html>

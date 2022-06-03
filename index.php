@@ -1,3 +1,6 @@
+<?php
+require 'function.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -57,57 +60,60 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
+                        <h1 class="mt-4">data pesanan</h1>
+                        
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
+                                    <div class="card-body">jumlah pesanan :</div>
+                                    
+                                </div>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        tambah pesanan
+                                     </button>
+                                <div class="container mt-3">
+
+                                     
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                Data barang
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>ID pesanan</th>
+                                            <th>tanggal pesanan</th>
+                                            <th>nama pelanggan</th>
+                                            <th>jumlah</th>
+                                            <th>aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
+                                        <?php
+                                        $getpesanan = mysqli_query($koneksi,"SELECT * FROM pesanan p, pelanggan pl WHERE p.id_pelanggan=pl.id_pelanggan");
+                                        
+                                        while($p=mysqli_fetch_array($getpesanan)){
+                                        $id_pesanan = $p['id_pesanan'];
+                                        $tanggal = $p ['tgl_pesanan'];
+                                        $nama_pelanggan = $p ['nama_pelanggan'];
+                                        $alamat = $p ['alamat'];
+                                    
+                                    
+                                    ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
+                                            
+                                            <td><?= $id_pesanan ?></td>
+                                            <td><?= $tanggal ?></td>
+                                            <td><?= $nama_pelanggan ?> - <?= $alamat ;?></td>
+                                            <td>jumlah</td>
+                                            <td><a href="view.php?idp= <?= $id_pesanan;?>" class="btn btn-primary" target="blank">tampilkan </a> | edit</td>
                                         </tr>
+                                        <?php };?>
                                     </tbody>
                                 </table>
                             </div>
@@ -131,4 +137,45 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
     </body>
+    <div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">DATA PESANAN</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST">
+      <!-- Modal body -->
+      <div class="modal-body">
+          PILIH PELANGGAN
+          <select name="id_pelanggan" >
+          <?php
+          $getpelanggan = mysqli_query($koneksi,"SELECT * FROM pelanggan");
+
+          while($pl= mysqli_fetch_array($getpelanggan)){
+              $id_pelanggan = $pl['id_pelanggan'];
+              $nama_pelanggan =$pl['nama_pelanggan'];
+              $alamat =$pl['alamat'];
+          ?>
+
+          <option value="<?=$id_pelanggan; ?>"><?=$nama_pelanggan;  ?> - <?=$alamat; ?></option>
+          <?php
+          }
+          ?>
+          </select>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-succes" name="tambahpesanan">simpan</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">tutup</button>
+      </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 </html>
